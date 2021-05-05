@@ -1,0 +1,479 @@
+<!--
+- Programming Mobile Applications, Section 2.
+- Final Project, by Kevin Marshall.
+- Submitted: April X, 2020
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>KM Final Project</title>
+        <!--jQuery-->
+        <script src="js/lib/jquery-2.1.4.js"></script>
+        <!--jQuery Mobile-->
+        <script src="js/lib/jquery.mobile-1.4.5.js"></script>
+        <!--jQuery Mobile Stylesheet-->
+        <link rel="stylesheet" type="text/css" href="css/lib/jquery.mobile-1.4.5.css">
+        <!--jQuery Validation lib-->
+        <script src="js/lib/jquery.validate.js"></script>
+
+        <!--our stuff-->       
+		<script src="js/lib/KMglobal.js"></script>
+		<script src="js/lib/KMfeedbackDAL.js"></script>
+		<script src="js/lib/KMdatabase.js"></script>
+		<script src="js/lib/KMfacade.js"></script>
+		<script src="js/lib/KMutil.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="css/mystyle.css">
+		<link rel="stylesheet" type="text/css" href="css/lib/KMmystyle.css">
+
+
+    </head>
+    <body>
+        <!--home page-->
+        <div id="KMhomePage" data-role="page">
+            <header data-role="header" data-theme="a" data-position="fixed">
+                <h1> Welcome! </h1>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#KMhomePage" data-icon="home"
+                               class="ui-btn-active ui-state-persist">Home</a>
+                        </li>
+
+                        <li><a href="#KMAddFeedbackPage" data-icon="calendar"
+                        >Book Stay</a>
+                        </li>
+
+                        <li><a href="#KMViewFeedbackPage" data-icon="edit"
+                        >Reservation</a>
+                        </li>
+						
+						<li><a href="#KMTeamPage" data-icon="heart"
+                        >Team</a>
+                        </li>  
+
+                        <li><a href="#KMSettingsPage" data-icon="user"
+                        >About</a>
+                        </li>                       
+                    </ul>
+                </div>
+
+            </header>
+            <section data-role="content">
+                <h2 align="center">Welcome to Zee's Cat Hotel!</h2>	
+				
+                <div align="center">
+                    <img src="img/catlogo.png" alt="Catlogo" width="50%">
+                </div>				
+                <p>At Zee's Cat Hotel, we understand that leaving your feline family member can be stressful and it is because of this that we take extra care to ensure that your kitty is pampered by our professional, knowledgeable and caring team. Every cat is unique and our experienced staff are able to accommodate just about any personality that arrives.</p>
+				
+				<div align="center">
+                    <img src="img/Zee.png" alt="Cat" width="50%">
+                </div>
+
+			<p>If you have any questions, don't hesitate contacting us!</p>					
+					
+					 <button onclick="" data-icon = "plus">ZeesCatHotel@gmail.com</button>					         
+
+            </section>
+            <footer data-role="footer" data-theme="a" data-position="fixed">
+                <h1> &copy; 2020 Zee's Cat Hotel  </h1>
+            </footer>
+			
+        </div>
+
+        <!--Book stay-->
+        <div id="KMAddFeedbackPage" data-role="page">
+            <header data-role="header" data-theme="a" data-position="fixed">
+			
+                <h1> Book a stay! </h1>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#KMhomePage" data-icon="home">Home</a>
+                        </li>
+
+                        <li><a href="#KMAddFeedbackPage" class="ui-btn-active ui-state-persist" data-icon="calendar"
+                        >Book Stay</a>
+                        </li>
+
+                        <li><a href="#KMViewFeedbackPage" data-icon="edit"
+                        >Reservation</a>
+                        </li>
+						
+						<li><a href="#KMTeamPage" data-icon="heart"
+                        >Team</a>
+                        </li>  
+
+                        <li><a href="#KMSettingsPage" data-icon="user"
+                        >About</a>
+                        </li>                       
+                    </ul>
+                </div>
+
+            </header>
+			
+           <section data-role="content" id="sectionTextBox" class="border">               
+                <section>
+                    <form id="feedbackTextBox">
+						<h1>Owner Information</h1>
+                        <label for="KMtxtName">Full Name:</label>
+                        <input type="text" id="KMtxtName" name="KMtxtName">
+						
+						<label for="KMtxtPhone">Phone Number:</label>
+                        <input type="text" id="KMtxtPhone" name="KMtxtPhone">
+						
+						<label for="KMemail">Email:</label>
+                        <input type="text" id="KMemail" name="KMemail">
+						
+						<label for="KMtxtAddress">Address:</label>
+                        <input type="text" id="KMtxtAddress" name="KMtxtAddress">	
+						
+						
+						<h1>Cat Information</h1>
+						
+						<label for="KMtxtCatName">Name:</label>
+                        <input type="text" id="KMtxtCatName" name="KMtxtCatName">
+						
+						<label for="KMtxtAge">Age (in years):</label>
+                        <input type="number" id="KMtxtAge" name="KMtxtAge">
+						
+						<label for="lvAllType">Breed:</label>
+						<select id="lvAllType"></select>
+						
+						<label for="">Gender:</label>
+						<fieldset data-role="controlgroup" data-type="horizontal">						
+                        <input type="radio" id="radMale1" name="radMaleFemale1" checked>
+                        <label for="radMale1">Male</label>
+                         <input type="radio" id="radFemale1" name="radMaleFemale1">
+                        <label for="radFemale1">Female</label>
+                        </fieldset>
+						
+						<h1>Trip Information</h1>
+						
+						<label for="KMtxtTripLength">Trip length (in days):</label>
+                        <input type="number" id="KMtxtTripLength" name="KMtxtTripLength" onchange="sum()">
+						
+						<label for="KMtripdatestart">Start of trip:</label>
+						<input type="date" id="KMtripdatestart" name="KMtripdatestart" data-clear-btn="true">					
+						
+						<label for="KMtxtRooms">Number of rooms:</label>
+                        <input type="text" id="KMtxtRooms" name="KMtxtRooms" onchange="sum()">
+						
+						<label for="KMcostofstay">Cost of stay (calculated):</label>
+                        <input type="text" id="KMcostofstay" name="KMcostofstay" value ="" readonly>
+						
+						<script>
+						function sum(){
+						
+						var tripLength = document.getElementById('KMtxtTripLength').value;
+						var roomNumber = document.getElementById('KMtxtRooms').value;					
+						var totalCost = (parseInt(tripLength)+parseInt(roomNumber))*50;
+						
+						if(!isNaN(totalCost)){
+											document.getElementById("KMcostofstay").value = "$"+totalCost;
+						}
+											
+						}
+						</script>						
+																
+
+                        <button type="button" data-role="button" id="KMbtnSave" name="KMbtnSave" data-theme="b" onclick="doValidate()"
+						style= "width: 85px; color: black; background-color: #ffcc00;">Book!</button>                       
+
+                    </form>
+                </section>
+
+            </section>
+            <footer data-role="footer" data-theme="a" data-position="fixed">
+                <h1> &copy; 2020 Zee's Cat Hotel </h1>
+            </footer>
+
+
+        </div>
+
+        <!-- Reservation Page-->
+         <div id="KMViewFeedbackPage" data-role="page">
+            <header data-role="header" data-theme="a" data-position="fixed">
+			
+                    <h1> Reservations </h1>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#KMhomePage" data-icon="home">Home</a>
+                        </li>
+
+                        <li><a href="#KMAddFeedbackPage" data-icon="calendar"
+                        >Book Stay</a>
+                        </li>
+
+                        <li><a href="#KMViewFeedbackPage" class="ui-btn-active ui-state-persist"  data-icon="edit"
+                        >Reservation</a>
+                        </li>
+						
+						<li><a href="#KMTeamPage" data-icon="heart"
+                        >Team</a>
+                        </li>  
+
+                        <li><a href="#KMSettingsPage" data-icon="user"
+                        >About</a>
+                        </li>                       
+                    </ul>
+                </div>
+
+            </header>
+            
+			<div data-role="main" class="ui-content">
+			<ul data-role="listview" class="ui-listview-inset" data-icon="false" id="KMFeedbackList">
+                   
+				  <!-- Bring data from database and display in list --> 
+				<h2>Your reservations:</h2>
+				<ul id="lvAll" data-role="listview" class="ui-listview-inset">				   
+			</ul>					
+			</div>
+			
+		<div data-role="footer" data-theme="a" data-position="fixed">
+                <h1> &copy; 2020 Zee's Cat Hotel </h1>
+            </div>					
+        </div>	
+		
+		<!-- Edit reservations-->
+        <div id="KMEditFeedbackPage" data-role="page">
+            <header data-role="header" data-theme="a" data-position="fixed">
+			
+                 <h1> Modify Reservation </h1>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#KMhomePage" data-icon="home">Home</a>
+                        </li>
+
+                        <li><a href="#KMAddFeedbackPage" data-icon="calendar"
+                        >Book Stay</a>
+                        </li>
+
+                        <li><a href="#KMViewFeedbackPage" class="ui-btn-active ui-state-persist" data-icon="edit"
+                        >Reservation</a>
+                        </li>
+						
+						<li><a href="#KMTeamPage" data-icon="heart"
+                        >Team</a>
+                        </li>  
+
+                        <li><a href="#KMSettingsPage" data-icon="user"
+                        >About</a>
+                        </li>                       
+                    </ul>
+                </div>
+
+            </header>
+            
+			<div data-role="main" class="ui-content">
+			<section>
+				<form id="KMfeedbackTextBoxEdit">
+				
+                        <h1>Owner Information</h1>
+                        <label for="KMtxtName2">Full Name:</label>
+                        <input type="text" id="KMtxtName2" name="KMtxtName2">
+						
+						<label for="KMtxtPhone2">Phone Number:</label>
+                        <input type="text" id="KMtxtPhone2" name="KMtxtPhone2">
+						
+						<label for="KMemail2">Email:</label>
+                        <input type="text" id="KMemail2" name="KMemail2">
+						
+						<label for="KMtxtAddress2">Address:</label>
+                        <input type="text" id="KMtxtAddress2" name="KMtxtAddress2">			
+									
+												
+						<h1>Cat Information</h1>
+						
+						<label for="KMtxtCatName2">Name:</label>
+                        <input type="text" id="KMtxtCatName2" name="KMtxtCatName2">
+						
+						<label for="KMtxtAge2">Age:</label>
+                        <input type="number" id="KMtxtAge2" name="KMtxtAge2">					
+						
+						<label for="KMcomboBox">Breed:</label>
+						<select id="KMcomboBox" name="type">
+						 <option value="1">Scottish Fold</option>
+						 <option value="2">Persian</option>
+					     <option value="3">Siamese</option>
+						 <option value="4">Bombay</option>
+						 <option value="5">Other</option> 
+						</select>						
+						
+						<label for="">Gender:</label>
+						<fieldset data-role="controlgroup" data-type="horizontal">						
+                        <input type="radio" id="radMale2" name="radMaleFemale2" checked>
+                        <label for="radMale2">Male</label>
+                         <input type="radio" id="radFemale2" name="radMaleFemale2">
+                        <label for="radFemale2">Female</label>
+                        </fieldset>
+						
+						<h1>Trip Information</h1>
+						
+						<label for="KMtxtTripLength2">Trip length (in days):</label>
+                        <input type="number" id="KMtxtTripLength2" name="KMtxtTripLength2" onchange= "sumEdit()">
+						
+						<label for="KMtripdatestart2">Start of trip:</label>
+						<input type="date" id="KMtripdatestart2" name="KMtripdatestart2" data-clear-btn="true">					
+						
+						<label for="KMtxtRooms2">Number of rooms:</label>
+                        <input type="number" id="KMtxtRooms2" name="KMtxtRooms2" onchange= "sumEdit()">
+						
+						<label for="KMcostofstay2">Cost of stay (calculated):</label>
+                        <input type="text" id="KMcostofstay2" name="KMcostofstay2" value ="" readonly>
+						
+						<script>
+						function sumEdit(){
+						
+						var tripLength = document.getElementById('KMtxtTripLength2').value;
+						var roomNumber = document.getElementById('KMtxtRooms2').value;					
+						var totalCost = (parseInt(tripLength)+parseInt(roomNumber))*50;
+						
+						if(!isNaN(totalCost)){
+											document.getElementById("KMcostofstay2").value = "$"+totalCost;
+						}
+											
+						}
+						</script>	
+						
+						 <fieldset data-role="controlgroup" data-type="horizontal">
+                        <button type="button" data-role="button" id="KMbtnCancel" name="KMbtnCancel" data-theme="b"
+						style="background-color: #fdfd96; color: black; width: 60px; display: inline;">Cancel</button>
+						
+						<button type="button" data-role="button" id="KMbtnDelete" name="KMbtnDelete" data-theme="b"
+						style="background-color: black;width: 60px; display: inline;">Delete</button>	
+						
+						<button type="button" data-role="button" id="KMbtnUpdate" name="KMbtnUpdate" data-theme="b" onclick="doValidate_OnEdit()"
+						style="background-color: #22aadd; width: 60px; display: inline;">Update</button>	
+							</fieldset>						
+						
+                </form>
+				</section>
+			</div>
+			
+		<div data-role="footer" data-theme="a" data-position="fixed">
+                <h1> &copy; 2020 Zee's Cat Hotel </h1>
+            </div>					
+        </div>	
+
+        <!-- About page-->
+        <div id="KMSettingsPage" data-role="page">
+            <header data-role="header" data-theme="a" data-position="fixed">
+			
+                   <h1> About the developer </h1>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#KMhomePage" data-icon="home">Home</a>
+                        </li>
+
+                        <li><a href="#KMAddFeedbackPage" data-icon="calendar"
+                        >Book Stay</a>
+                        </li>
+
+                        <li><a href="#KMViewFeedbackPage" data-icon="edit"
+                        >Reservation</a>
+                        </li>
+						
+						<li><a href="#KMTeamPage" data-icon="heart"
+                        >Team</a>
+                        </li>  
+
+                        <li><a href="#KMSettingsPage" class="ui-btn-active ui-state-persist" data-icon="user"
+                        >About</a>
+                        </li>                       
+                    </ul>
+                </div>
+
+            </header>
+            
+			<div data-role="main" class="ui-content">
+			<form id="emailTextBox">
+			
+					<h2>This application was developed by Kevin Marshall for the PROG2430 Section 2 Final Project.</h2>
+					<p>Date Submitted: April 18, 2020</p>
+                   
+						
+						<button type="button" data-role="button" id="KMbtnClearDatabase" 
+						name="KMbtnClearDatabase" data-theme="b" style="background-color: black">Clear Database
+						</button> 					
+						
+			</form>			
+			</div>
+			
+			<div data-role="footer" data-theme="a" data-position="fixed">
+                <h1> &copy; 2020 Zee's Cat Hotel </h1>
+            </div>					
+        </div>   
+
+
+		  <!-- Team page-->
+        <div id="KMTeamPage" data-role="page">
+            <header data-role="header" data-theme="a" data-position="fixed">
+			
+                   <h1> About Our Team </h1>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#KMhomePage" data-icon="home">Home</a>
+                        </li>
+
+                        <li><a href="#KMAddFeedbackPage" data-icon="calendar"
+                        >Book Stay</a>
+                        </li>
+
+                        <li><a href="#KMViewFeedbackPage" data-icon="edit"
+                        >Reservation</a>
+                        </li>
+						
+						<li><a href="#KMTeamPage" data-icon="heart" class="ui-btn-active ui-state-persist"  >Team</a>
+                        </li>  
+
+                        <li><a href="#KMSettingsPage" data-icon="user"
+                        >About</a>
+                        </li>                       
+                    </ul>
+                </div>
+
+            </header>
+            
+			<div data-role="main" class="ui-content">
+			<form id="emailTextBox">
+			
+					<h1>Meet the team</h1>
+					<h2>Coryn</h2>
+					
+						<div align="left">
+							<img src="img/girlThree.jpg" alt="1" width="50%"  height="50%">
+						</div>
+					
+					<p>Coryn's passion for animals has been expressed throughout her years of experience! She has spent time working with the Humane Society and the SPCA as an adoption counselor as well as an animal protection officer.</p>
+					
+					<h2>Christine</h2>
+					
+						<div align="left">
+							<img src="img/girlOne.png" alt="2" width="50%" height="50%">
+						</div>
+					
+					<p>Christine has had experience with ALL kinds of animals including those that don’t live in your home: elephants, reindeer, camels, ponies and very big cats – Cheetahs! (she worked at African Lions Safari).  A graduate of the University of Guelph, while she was in school, she also volunteered at the animal care service right on campus!</p>
+					
+					
+					<h2>Harold</h2>
+					
+						<div align="left">
+							<img src="img/oldMan.png" alt="3" width="50%"  height="50%">
+						</div>
+					
+					<p>Animals have been a central part of his life since he was a little boy. He has been involved in many aspects of animal rescue including fostering kittens.  A graduate of York University he has gained many hands on skills over the past 12 years.</p>
+						
+						
+						
+			</form>			
+			</div>
+			
+			<div data-role="footer" data-theme="a" data-position="fixed">
+                <h1> &copy; 2020 Zee's Cat Hotel </h1>
+            </div>					
+        </div>   
+
+    </body>
+</html>
