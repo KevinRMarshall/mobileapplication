@@ -125,17 +125,15 @@
                   <label for="KMcostofstay">Cost of stay (calculated):</label>
                   <input type="text" id="KMcostofstay" name="KMcostofstay" value ="" readonly>
                   <script>
-                     function sum(){
-                     
-                     var tripLength = document.getElementById('KMtxtTripLength').value;
-                     var roomNumber = document.getElementById('KMtxtRooms').value;					
-                     var totalCost = (parseInt(tripLength)+parseInt(roomNumber))*50;
-                     
-                     if(!isNaN(totalCost)){
-                     					document.getElementById("KMcostofstay").value = "$"+totalCost;
-                     }
-                     					
-                     }
+                 function sum() {
+                           var tripLength = document.getElementById('KMtxtTripLength').value;
+                           var roomNumber = document.getElementById('KMtxtRooms').value;
+                           var totalCost = (parseInt(tripLength) + parseInt(roomNumber)) * 50;
+
+	                        if (!isNaN(totalCost)) {
+		                           document.getElementById("KMcostofstay").value = "$" + totalCost;
+	                              }
+                           }
                   </script>						
                   <button type="button" data-role="button" id="KMbtnSave" name="KMbtnSave" data-theme="b" onclick="doValidate()"
                      style= "width: 85px; color: black; background-color: #ffcc00;">Book!</button>                       
